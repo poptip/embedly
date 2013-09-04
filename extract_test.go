@@ -39,9 +39,12 @@ func tearDown() {
 }
 
 func mockRequest(status int, filename string) {
-	r, err := ioutil.ReadFile(filename)
-	assert.MustNil(err)
-	results = r
+	statusCode = status
+	if len(filename) > 0 {
+		r, err := ioutil.ReadFile(filename)
+		assert.MustNil(err)
+		results = r
+	}
 }
 
 func TestExtract(t *testing.T) {
@@ -53,4 +56,7 @@ func TestExtract(t *testing.T) {
 	response, err := c.ExtractOne("http://www.theonion.com/articles/fasttalking-computer-hacker-just-has-to-break-thro,32000/", Options{})
 	assert.MustNil(err)
 	assert.Equal("Fast-Talking Computer Hacker Just Has To Break Through Encryption Shield Before Uploading Nano-Virus", response.Title)
+	mockRequest(500, "")
+	_, err = c.ExtractOne("nope", Options{})
+	assert.MustNotNil(err)
 }

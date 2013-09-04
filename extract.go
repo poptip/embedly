@@ -71,6 +71,9 @@ func (c *Client) extract(urls []string, options Options) ([]Response, error) {
 	if err != nil {
 		return nil, err
 	}
+	if resp.StatusCode != 200 {
+		return nil, errors.New("Got non 200 status code: " + resp.Status)
+	}
 
 	// Read the JSON message from the body.
 	defer resp.Body.Close()
