@@ -3,6 +3,7 @@ package embedly
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
@@ -72,7 +73,7 @@ func (c *Client) extract(urls []string, options Options) ([]Response, error) {
 		return nil, err
 	}
 	if resp.StatusCode != 200 {
-		return nil, errors.New("Got non 200 status code: " + resp.Status)
+		return nil, fmt.Errorf("Got non 200 status code: %s", resp.Status)
 	}
 
 	// Read the JSON message from the body.
