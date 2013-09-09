@@ -1,5 +1,20 @@
 package embedly
 
+const (
+	TypeHTML  = "html"
+	TypeText  = "text"
+	TypeImage = "image"
+	TypeVideo = "video"
+	TypeAudio = "audio"
+	TypeRSS   = "rss"
+	TypeXML   = "xml"
+	TypeAtom  = "atom"
+	TypeJSON  = "json"
+	TypePPT   = "ptt"
+	TypeLink  = "link"
+	TypeError = "error"
+)
+
 type Options struct {
 	MaxWidth     int
 	MaxHeight    int
