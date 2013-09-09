@@ -56,6 +56,8 @@ func (c *Client) extract(urls []string, options Options) ([]Response, error) {
 	v.Add("key", c.key)
 	if len(urls) == 0 {
 		return nil, errors.New("At least one url is required")
+	} else if len(urls) == 1 {
+		v.Add("url", urls[0])
 	} else {
 		v.Add("urls", strings.Join(urls, ","))
 	}
