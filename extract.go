@@ -26,7 +26,11 @@ func NewClient(key string) *Client {
 func (c *Client) Extract(urls []string, options Options) ([]Response, error) {
 	responses := make([]Response, len(urls))
 	for i := 0; i < len(urls); i += 10 {
-		r, err := c.extract(urls[i:i+10], options)
+		to := len(urls)
+		if to > i+10 {
+			to = i + 10
+		}
+		r, err := c.extract(urls[i:to], options)
 		if err != nil {
 			return nil, err
 		}
