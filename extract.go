@@ -80,7 +80,7 @@ func (c *Client) extract(urls []string, options Options) ([]Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	if resp.StatusCode != 200 {
+	if resp.StatusCode >= 500 {
 		body, _ := ioutil.ReadAll(resp.Body)
 		return nil, fmt.Errorf("Got non 200 status code: %s %q", resp.Status, body)
 	}
