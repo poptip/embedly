@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -73,7 +74,8 @@ func (c *Client) extract(urls []string, options Options) ([]Response, error) {
 		return nil, err
 	}
 	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("Got non 200 status code: %s", resp.Status)
+		body, _ := ioutil.ReadAll(resp.Body)
+		return nil, fmt.Errorf("Got non 200 status code: %s %q", resp.Status, body)
 	}
 
 	// Read the JSON message from the body.

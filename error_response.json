@@ -1,0 +1,8 @@
+[
+  {
+    "original_url": "",
+    "type": "error",
+		"error_message": "empty link",
+		"error_code": 400
+  }
+]

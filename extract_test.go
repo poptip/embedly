@@ -56,7 +56,7 @@ func TestExtract(t *testing.T) {
 	response, err := c.ExtractOne("http://www.theonion.com/articles/fasttalking-computer-hacker-just-has-to-break-thro,32000/", Options{})
 	assert.MustNil(err)
 	assert.Equal("Fast-Talking Computer Hacker Just Has To Break Through Encryption Shield Before Uploading Nano-Virus", response.Title)
-	mockRequest(500, "")
+	mockRequest(500, "error_response.json")
 	_, err = c.ExtractOne("nope", Options{})
 	assert.MustNotNil(err)
 }
