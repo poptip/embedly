@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -97,7 +98,7 @@ func (c *Client) extract(urls []string, options Options) ([]Response, error) {
 // addInt adds an int if non-zero.
 func addInt(v *url.Values, name string, value int) {
 	if value > 0 {
-		v.Add(name, string(value))
+		v.Add(name, strconv.Itoa(value))
 	}
 }
 
