@@ -31,12 +31,17 @@ func (c *Client) Extract(urls []string, options Options) ([]Response, error) {
 		if to > i+10 {
 			to = i + 10
 		}
-		r, err := c.extract(urls[i:to], options)
+		res, err := c.extract(urls[i:to], options)
 		if err != nil {
 			return nil, err
 		}
-		for j, res := range r {
-			responses[i+j] = res
+
+		reslen := to - i
+		if reslen > len(res) {
+			reslen = len(res)
+		}
+		for j := 0; j < reslen; j++ {
+			responses[i+j] = res[j]
 		}
 	}
 	return responses, nil
@@ -56,10 +61,18 @@ func (c *Client) extract(urls []string, options Options) ([]Response, error) {
 	v := url.Values{}
 	v.Add("key", c.key)
 	if len(urls) == 0 {
-		return nil, errors.New("At least one url is required")
+		return nil, errors.New("At least one URL is required")
 	} else if len(urls) == 1 {
+		if len(urls[0]) == 0 {
+			return nil, errors.New("URL cannot be empty")
+		}
 		v.Add("url", urls[0])
 	} else {
+		for _, url := range urls {
+			if len(url) == 0 {
+				return nil, errors.New("A URL cannot be empty")
+			}
+		}
 		v.Add("urls", strings.Join(urls, ","))
 	}
 
@@ -80,13 +93,13 @@ func (c *Client) extract(urls []string, options Options) ([]Response, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer resp.Body.Close()
 	if resp.StatusCode >= 500 {
 		body, _ := ioutil.ReadAll(resp.Body)
 		return nil, fmt.Errorf("Got non 200 status code: %s %q", resp.Status, body)
 	}
 
 	// Read the JSON message from the body.
-	defer resp.Body.Close()
 	response := []Response{}
 	decoder := json.NewDecoder(resp.Body)
 	if err := decoder.Decode(&response); err != nil {
