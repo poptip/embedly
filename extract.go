@@ -58,24 +58,28 @@ func (c *Client) ExtractOne(url string, options Options) (*Response, error) {
 
 // extract will call extract 10 urls at max.
 func (c *Client) extract(urls []string, options Options) ([]Response, error) {
-	v := url.Values{}
-	v.Add("key", c.key)
+	addr := Host + "/1/extract?"
+	for i, u := range urls {
+		urls[i] = url.QueryEscape(u)
+	}
 	if len(urls) == 0 {
 		return nil, errors.New("At least one URL is required")
 	} else if len(urls) == 1 {
 		if len(urls[0]) == 0 {
 			return nil, errors.New("URL cannot be empty")
 		}
-		v.Add("url", urls[0])
+		addr += "url=" + url.QueryEscape(urls[0])
 	} else {
 		for _, url := range urls {
 			if len(url) == 0 {
 				return nil, errors.New("A URL cannot be empty")
 			}
 		}
-		v.Add("urls", strings.Join(urls, ","))
+		addr += "urls=" + strings.Join(urls, ",")
 	}
 
+	v := url.Values{}
+	v.Add("key", c.key)
 	addInt(&v, "maxwidth", options.MaxWidth)
 	addInt(&v, "maxheight", options.MaxHeight)
 	addInt(&v, "words", options.Words)
@@ -89,7 +93,8 @@ func (c *Client) extract(urls []string, options Options) ([]Response, error) {
 	addBool(&v, "secure", options.Secure)
 
 	// Make the request.
-	resp, err := http.Get(Host + "/1/extract?" + v.Encode())
+	addr += "&" + v.Encode()
+	resp, err := http.Get(addr)
 	if err != nil {
 		return nil, err
 	}
