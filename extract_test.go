@@ -4,6 +4,7 @@ import (
 	"github.com/coocood/assrt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 	"sync"
 	"testing"
 )
@@ -41,7 +42,7 @@ func tearDown() {
 func mockRequest(status int, filename string) {
 	statusCode = status
 	if len(filename) > 0 {
-		r, err := ioutil.ReadFile(filename)
+		r, err := ioutil.ReadFile("mocks/" + filename + ".json")
 		assert.MustNil(err)
 		results = r
 	}
@@ -53,12 +54,13 @@ func TestExtract(t *testing.T) {
 	assert = assrt.NewAssert(t)
 	c := NewClient("")
 
-	mockRequest(200, "responses.json")
+	mockRequest(200, "response")
 	response, err := c.ExtractOne("http://www.theonion.com/articles/fasttalking-computer-hacker-just-has-to-break-thro,32000/", Options{})
 	assert.MustNil(err)
 	assert.Equal("Fast-Talking Computer Hacker Just Has To Break Through Encryption Shield Before Uploading Nano-Virus", response.Title)
 	assert.Equal(TypeHTML, response.Type)
 
+	mockRequest(200, "responses5")
 	urls := []string{
 		"http://google.com",
 		"http://yahoo.com",
@@ -70,6 +72,7 @@ func TestExtract(t *testing.T) {
 	assert.MustNil(err)
 	assert.Equal(5, len(links))
 
+	mockRequest(200, "responses10")
 	urls = []string{
 		"http://google.com",
 		"http://yahoo.com",
@@ -90,8 +93,11 @@ func TestExtract(t *testing.T) {
 	links, err = c.Extract(urls, Options{})
 	assert.MustNil(err)
 	assert.Equal(15, len(links))
+	for i, link := range links {
+		assert.True(len(link.Title) > 0, strconv.Itoa(i)+"th link with empty title")
+	}
 
-	mockRequest(500, "error_response.json")
+	mockRequest(500, "error_response")
 	_, err = c.ExtractOne("nope", Options{})
 	assert.MustNotNil(err)
 }
