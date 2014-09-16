@@ -1,12 +1,15 @@
 package embedly
 
 import (
-	"github.com/coocood/assrt"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"sync"
 	"testing"
+
+	"github.com/coocood/assrt"
 )
 
 var (
@@ -49,8 +52,8 @@ func mockRequest(status int, filename string) {
 }
 
 func TestExtract(t *testing.T) {
-	once.Do(setUp)
-	defer once.Do(tearDown)
+	setUp()
+	defer tearDown()
 	assert = assrt.NewAssert(t)
 	c := NewClient("")
 
@@ -58,6 +61,12 @@ func TestExtract(t *testing.T) {
 	response, err := c.ExtractOne("http://www.theonion.com/articles/fasttalking-computer-hacker-just-has-to-break-thro,32000/", Options{})
 	assert.MustNil(err)
 	assert.Equal("Fast-Talking Computer Hacker Just Has To Break Through Encryption Shield Before Uploading Nano-Virus", response.Title)
+	assert.Equal(TypeHTML, response.Type)
+
+	mockRequest(200, "giphy")
+	response, err = c.ExtractOne("http://giphy.com/gifs/XYyT3ZRNzaflK", Options{})
+	assert.MustNil(err)
+	assert.Equal("Jim Carrey Animated GIF", response.Title)
 	assert.Equal(TypeHTML, response.Type)
 
 	mockRequest(200, "responses5")
@@ -100,4 +109,17 @@ func TestExtract(t *testing.T) {
 	mockRequest(500, "error_response")
 	_, err = c.ExtractOne("nope", Options{})
 	assert.MustNotNil(err)
+}
+
+func TestRealAPI(t *testing.T) {
+	apiKey := os.Getenv("EMBEDLY_API_KEY")
+	if len(apiKey) == 0 {
+		return
+	}
+	log.Println("Testing with the Embedly API")
+	client := NewClient(apiKey)
+	response, err := client.Extract([]string{"http://giphy.com/gifs/XYyT3ZRNzaflK"}, Options{})
+	assert.MustNil(err)
+	log.Printf("%+v", response[0])
+	assert.Equal(t, "Jim Carrey Animated GIF", response[0].Title)
 }

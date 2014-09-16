@@ -67,7 +67,7 @@ type Media struct {
 	URL    string `json:"url,omitempty"`
 	Width  int    `json:"width,omitempty"`
 	Height int    `json:"height,omitempty"`
-	HTML   int    `json:"html,omitempty"`
+	HTML   string `json:"html,omitempty"`
 }
 
 type Keyword struct {
