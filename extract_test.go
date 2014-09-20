@@ -18,10 +18,12 @@ var (
 	results      []byte
 	server       *http.Server
 	assert       *assrt.Assert
-	once         sync.Once
+	setUpOnce    sync.Once
+	tearDownOnce sync.Once
 )
 
 func setUp() {
+	log.Println("Setup Fake API")
 	originalHost = Host
 	Host = "http://localhost:12345"
 	// Custom handler used for mocking request results.
@@ -39,6 +41,7 @@ func setUp() {
 }
 
 func tearDown() {
+	log.Println("Teardown Fake API")
 	Host = originalHost
 }
 
@@ -52,8 +55,8 @@ func mockRequest(status int, filename string) {
 }
 
 func TestExtract(t *testing.T) {
-	setUp()
-	defer tearDown()
+	setUpOnce.Do(setUp)
+	defer tearDownOnce.Do(tearDown)
 	assert = assrt.NewAssert(t)
 	c := NewClient("")
 
