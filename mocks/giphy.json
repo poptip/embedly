@@ -1,0 +1,164 @@
+[
+  {
+    "provider_url": "http:\/\/giphy.com",
+    "description": "The best GIFs are on Giphy",
+    "embeds": [
+      
+    ],
+    "safe": true,
+    "provider_display": "giphy.com",
+    "related": [
+      
+    ],
+    "favicon_url": "http:\/\/giphy.com\/static\/img\/favicon.png",
+    "authors": [
+      
+    ],
+    "images": [
+      {
+        "caption": null,
+        "url": "http:\/\/media.giphy.com\/media\/XYyT3ZRNzaflK\/giphy-facebook_s.jpg",
+        "height": 270,
+        "width": 480,
+        "colors": [
+          {
+            "color": [
+              108,
+              70,
+              53
+            ],
+            "weight": 0.34619140625
+          },
+          {
+            "color": [
+              187,
+              169,
+              162
+            ],
+            "weight": 0.30224609375
+          },
+          {
+            "color": [
+              148,
+              123,
+              115
+            ],
+            "weight": 0.218505859375
+          },
+          {
+            "color": [
+              7,
+              4,
+              4
+            ],
+            "weight": 0.133056640625
+          }
+        ],
+        "entropy": 4.53740475248,
+        "size": 100138
+      }
+    ],
+    "cache_age": 15247,
+    "language": "English",
+    "app_links": [
+      
+    ],
+    "original_url": "http:\/\/giphy.com\/gifs\/XYyT3ZRNzaflK",
+    "url": "http:\/\/giphy.com\/gifs\/XYyT3ZRNzaflK",
+    "media": {
+      "width": 500,
+      "html": "<iframe class=\"embedly-embed\" src=\"\/\/cdn.embedly.com\/widgets\/media.html?src=https%3A%2F%2Fgiphy.com%2Fembed%2FXYyT3ZRNzaflK%2Ftwitter%2Fiframe&src_secure=1&url=http%3A%2F%2Fgiphy.com%2Fgifs%2FXYyT3ZRNzaflK&image=http%3A%2F%2Fmedia.giphy.com%2Fmedia%2FXYyT3ZRNzaflK%2Fgiphy-facebook_s.jpg&key=49d59ff1e77248aba53c41ddfbb97284&type=text%2Fhtml&schema=giphy\" width=\"500\" height=\"360\" scrolling=\"no\" frameborder=\"0\" allowfullscreen><\/iframe>",
+      "type": "video",
+      "height": 360
+    },
+    "title": "Jim Carrey Animated GIF",
+    "offset": null,
+    "lead": null,
+    "content": null,
+    "entities": [
+      {
+        "count": 1,
+        "name": "DMCA API Labs Google"
+      }
+    ],
+    "favicon_colors": [
+      {
+        "color": [
+          26,
+          24,
+          35
+        ],
+        "weight": 0.027587890625
+      },
+      {
+        "color": [
+          251,
+          249,
+          229
+        ],
+        "weight": 0.0146484375
+      },
+      {
+        "color": [
+          85,
+          195,
+          184
+        ],
+        "weight": 0.01171875
+      },
+      {
+        "color": [
+          236,
+          103,
+          106
+        ],
+        "weight": 0.008544921875
+      }
+    ],
+    "keywords": [
+      {
+        "score": 23,
+        "name": "gif"
+      },
+      {
+        "score": 11,
+        "name": "link"
+      },
+      {
+        "score": 11,
+        "name": "preview"
+      },
+      {
+        "score": 10,
+        "name": "42238765138"
+      },
+      {
+        "score": 10,
+        "name": "dmca"
+      },
+      {
+        "score": 10,
+        "name": "autoselect"
+      },
+      {
+        "score": 10,
+        "name": "mishasfuzzyface"
+      },
+      {
+        "score": 10,
+        "name": "giphy"
+      },
+      {
+        "score": 10,
+        "name": "carrey"
+      },
+      {
+        "score": 9,
+        "name": "html5"
+      }
+    ],
+    "published": null,
+    "provider_name": "Giphy",
+    "type": "html"
+  }
+]

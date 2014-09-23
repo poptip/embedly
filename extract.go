@@ -64,11 +64,6 @@ func (c *Client) extract(urls []string, options Options) ([]Response, error) {
 	}
 	if len(urls) == 0 {
 		return nil, errors.New("At least one URL is required")
-	} else if len(urls) == 1 {
-		if len(urls[0]) == 0 {
-			return nil, errors.New("URL cannot be empty")
-		}
-		addr += "url=" + urls[0]
 	} else {
 		for _, url := range urls {
 			if len(url) == 0 {
