@@ -51,6 +51,7 @@ type Response struct {
 	Published       int64     `json:"published"`
 	Offset          int64     `json:"offset"`
 	Lead            string    `json:"lead"`
+	Language        string    `json:"language"`
 	Content         string    `json:"content"`
 	Keywords        []Keyword `json:"keywords"`
 	Entities        []Entity  `json:"entities"`

@@ -65,12 +65,14 @@ func TestExtract(t *testing.T) {
 	assert.MustNil(err)
 	assert.Equal("Fast-Talking Computer Hacker Just Has To Break Through Encryption Shield Before Uploading Nano-Virus", response.Title)
 	assert.Equal(TypeHTML, response.Type)
+	assert.Equal("English", response.Language)
 
 	mockRequest(200, "giphy")
 	response, err = c.ExtractOne("http://giphy.com/gifs/XYyT3ZRNzaflK", Options{})
 	assert.MustNil(err)
 	assert.Equal("Jim Carrey Animated GIF", response.Title)
 	assert.Equal(TypeHTML, response.Type)
+	assert.Equal("English", response.Language)
 
 	mockRequest(200, "responses5")
 	urls := []string{
