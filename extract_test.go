@@ -1,4 +1,4 @@
-package embedly
+package embedly_test
 
 import (
 	"io/ioutil"
@@ -10,6 +10,7 @@ import (
 	"testing"
 
 	"github.com/coocood/assrt"
+	"github.com/poptip/embedly"
 )
 
 var (
@@ -24,8 +25,8 @@ var (
 
 func setUp() {
 	log.Println("Setup Fake API")
-	originalHost = Host
-	Host = "http://localhost:12345"
+	originalHost = embedly.Host
+	embedly.Host = "http://localhost:12345"
 	// Custom handler used for mocking request results.
 	handler := http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(statusCode)
@@ -42,7 +43,7 @@ func setUp() {
 
 func tearDown() {
 	log.Println("Teardown Fake API")
-	Host = originalHost
+	embedly.Host = originalHost
 }
 
 func mockRequest(status int, filename string) {
@@ -58,19 +59,19 @@ func TestExtract(t *testing.T) {
 	setUpOnce.Do(setUp)
 	defer tearDownOnce.Do(tearDown)
 	assert = assrt.NewAssert(t)
-	c := NewClient("")
+	c := embedly.NewClient("")
 
 	mockRequest(200, "response")
-	response, err := c.ExtractOne("http://www.theonion.com/articles/fasttalking-computer-hacker-just-has-to-break-thro,32000/", Options{})
+	response, err := c.ExtractOne("http://www.theonion.com/articles/fasttalking-computer-hacker-just-has-to-break-thro,32000/", embedly.Options{})
 	assert.MustNil(err)
 	assert.Equal("Fast-Talking Computer Hacker Just Has To Break Through Encryption Shield Before Uploading Nano-Virus", response.Title)
-	assert.Equal(TypeHTML, response.Type)
+	assert.Equal(embedly.TypeHTML, response.Type)
 
 	mockRequest(200, "giphy")
-	response, err = c.ExtractOne("http://giphy.com/gifs/XYyT3ZRNzaflK", Options{})
+	response, err = c.ExtractOne("http://giphy.com/gifs/XYyT3ZRNzaflK", embedly.Options{})
 	assert.MustNil(err)
 	assert.Equal("Jim Carrey Animated GIF", response.Title)
-	assert.Equal(TypeHTML, response.Type)
+	assert.Equal(embedly.TypeHTML, response.Type)
 
 	mockRequest(200, "responses5")
 	urls := []string{
@@ -80,7 +81,7 @@ func TestExtract(t *testing.T) {
 		"http://cnn.com",
 		"http://bbc.com",
 	}
-	links, err := c.Extract(urls, Options{})
+	links, err := c.Extract(urls, embedly.Options{})
 	assert.MustNil(err)
 	assert.Equal(5, len(links))
 
@@ -102,7 +103,7 @@ func TestExtract(t *testing.T) {
 		"http://cnn.com",
 		"http://bbc.com",
 	}
-	links, err = c.Extract(urls, Options{})
+	links, err = c.Extract(urls, embedly.Options{})
 	assert.MustNil(err)
 	assert.Equal(15, len(links))
 	for i, link := range links {
@@ -110,7 +111,7 @@ func TestExtract(t *testing.T) {
 	}
 
 	mockRequest(500, "error_response")
-	_, err = c.ExtractOne("nope", Options{})
+	_, err = c.ExtractOne("nope", embedly.Options{})
 	assert.MustNotNil(err)
 }
 
@@ -120,8 +121,8 @@ func TestRealAPI(t *testing.T) {
 		return
 	}
 	log.Println("Testing with the Embedly API")
-	client := NewClient(apiKey)
-	response, err := client.Extract([]string{"http://giphy.com/gifs/XYyT3ZRNzaflK"}, Options{})
+	client := embedly.NewClient(apiKey)
+	response, err := client.Extract([]string{"http://giphy.com/gifs/XYyT3ZRNzaflK"}, embedly.Options{})
 	assert.MustNil(err)
 	log.Printf("%+v", response[0])
 	assert.Equal(t, "Jim Carrey Animated GIF", response[0].Title)
