@@ -8,20 +8,20 @@ A go client for the embedly Extract API.
 package main
 
 import (
-  "github.com/poptip/embedly.go/extract"
+  "github.com/poptip/embedly"
 )
 
 func main() {
-  c := extract.NewClient(key)
+  c := embedly.NewClient(key)
   urls := []string{}
-  options = extract.Options{}
-  responses, err := extract.Extract(urls, options)
+  options = embedly.Options{}
+  responses, err := embedly.Extract(urls, options)
 }
 ```
 
 ### Install
 
-    go get github.com/poptip/embedly.go/extract
+    go get github.com/poptip/embedly
 
 ### License
 
