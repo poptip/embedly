@@ -31,30 +31,30 @@ type Options struct {
 }
 
 type Response struct {
-	OriginalURL     string    `json:"original_url"`
-	URL             string    `json:"url"`
-	Type            string    `json:"type"`
-	ErrorMessage    string    `json:"error_message,omitempty"`
-	ErrorCode       int       `json:"error_code"`
-	Safe            bool      `json:"safe"`
-	SafeType        string    `json:"safe_type,omitempty"`
-	SafeMessage     string    `json:"safe_message,omitempty"`
-	CacheAge        int       `json:"cache_age,omitempty"`
-	ProviderName    string    `json:"provider_name"`
-	ProviderURL     string    `json:"provider_url"`
-	ProviderDisplay string    `json:"provider_display"`
-	FaviconURL      string    `json:"favicon_url"`
-	Title           string    `json:"title"`
-	Description     string    `json:"description"`
-	Authors         []Author  `json:"authors"`
-	Media           Media     `json:"media"`
-	Published       int64     `json:"published"`
-	Offset          int64     `json:"offset"`
-	Lead            string    `json:"lead"`
-	Content         string    `json:"content"`
-	Keywords        []Keyword `json:"keywords"`
-	Entities        []Entity  `json:"entities"`
-	Images          []Image   `json:"images"`
+	OriginalURL     string   `json:"original_url"`
+	URL             string   `json:"url"`
+	Type            string   `json:"type"`
+	ErrorMessage    string   `json:"error_message,omitempty"`
+	ErrorCode       int      `json:"error_code"`
+	Safe            bool     `json:"safe"`
+	SafeType        string   `json:"safe_type,omitempty"`
+	SafeMessage     string   `json:"safe_message,omitempty"`
+	CacheAge        int      `json:"cache_age,omitempty"`
+	ProviderName    string   `json:"provider_name"`
+	ProviderURL     string   `json:"provider_url"`
+	ProviderDisplay string   `json:"provider_display"`
+	FaviconURL      string   `json:"favicon_url"`
+	Title           string   `json:"title"`
+	Description     string   `json:"description"`
+	Authors         []Author `json:"authors"`
+	Media           Media    `json:"media"`
+	Published       int64    `json:"published"`
+	Offset          int64    `json:"offset"`
+	Lead            string   `json:"lead"`
+	Content         string   `json:"content"`
+	// Keywords        []Keyword `json:"keywords"`
+	Entities []Entity `json:"entities"`
+	Images   []Image  `json:"images"`
 }
 
 type Author struct {
